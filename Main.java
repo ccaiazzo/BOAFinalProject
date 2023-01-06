@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -14,6 +15,30 @@ public class Main {
         char[][] gameBoard = createGameBoard(gameBoardLength, water, ship, shipNumber); //this is a 2d character array that will be our game board
 
         printGameBoard(gameBoard, water, ship);  //this will run and print the game board
+        int undetectedShipNumber = shipNumber;//the initial value of undetected ships will be however many ships are in the game at the start
+        while(undetectedShipNumber > 0) { //this will run as long as there are still undetected ships remaining on the board
+            int[] guessCoordinates = getUserCoordinates(gameBoardLength);
+            char locationViewUpdate = evaluateGuessAndGetTheTarget();
+            if (locationViewUpdate == hit) {
+                undetectedShipNumber--;
+            }
+            gameBoard = updateGameBoard();
+            printGameBoard(gameBoard, water, ship);
+        }
+    }
+
+    private static int[] getUserCoordinates(int gameBoardLength) { //this method will take the user's row and column target guess
+        int row;
+        int col;
+        do {
+            System.out.print("Row: ");
+            row = new Scanner(System.in).nextInt();
+        } while(row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside of game board's length
+        do {
+            System.out.print("Column: ");
+            col = new Scanner(System.in).nextInt();
+        } while(col < 1 || col > gameBoardLength + 1); //same logic as above
+        return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
     }
 
     private static void printGameBoard(char[][] gameBoard, char water, char ship) {
