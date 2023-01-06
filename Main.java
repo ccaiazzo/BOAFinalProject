@@ -5,7 +5,7 @@ public class Main {
 
     public static void main(String[] args) {
         int gameBoardLength = 4; //this will be the size of the game board
-        char water = '~'; //this will be the character symbol for the ship
+        char water = '-'; //this will be the character symbol for the ship
         char ship = 's'; //this will be the character symbol for s
         char hit = 'X'; //this will be the character symbol for a hit
         char miss = 'O'; //this will be the character symbol for a miss
@@ -13,7 +13,31 @@ public class Main {
 
         char[][] gameBoard = createGameBoard(gameBoardLength, water, ship, shipNumber); //this is a 2d character array that will be our game board
 
+        printGameBoard(gameBoard, water, ship);  //this will run and print the game board
+    }
 
+    private static void printGameBoard(char[][] gameBoard, char water, char ship) {
+        int gameBoardLength = gameBoard.length;
+        System.out.print("  ");
+        for (int i = 0; i < gameBoardLength; i++) {  //this for loop will label the column with number
+            System.out.print((i + 1) + " ");
+        }
+        System.out.println();
+
+        for (int row = 0; row < gameBoardLength; row++) {  //iterate through board rows
+            System.out.print((row + 1) + " ");  //label row with numbers
+                     for (int column = 0; column < gameBoardLength; column++) {  //iterate through columns
+                    char position = gameBoard[row][column];
+                    if (position == ship) {
+                        System.out.print(water + " ");
+                    }
+                    else {
+                        System.out.print(position + " ");
+                    }
+            }
+            System.out.println();
+        }
+        System.out.println();
     }
 
     private static char[][] createGameBoard(int gameBoardLength, char water, char ship, int shipNumber) {
