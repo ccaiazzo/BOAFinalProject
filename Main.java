@@ -18,7 +18,7 @@ public class Main {
         int undetectedShipNumber = shipNumber;//the initial value of undetected ships will be however many ships are in the game at the start
         while(undetectedShipNumber > 0) { //this will run as long as there are still undetected ships remaining on the board
             int[] guessCoordinates = getUserCoordinates(gameBoardLength);
-            char locationViewUpdate = evaluateGuessAndGetTheTarget();
+            char locationViewUpdate = evaluateGuessAndGetTheTarget(guessCoordinates, gameBoard, ship, water, hit, miss); //this will determine whether the user target is a hit or miss.
             if (locationViewUpdate == hit) {
                 undetectedShipNumber--;
             }
@@ -33,7 +33,7 @@ public class Main {
         do {
             System.out.print("Row: ");
             row = new Scanner(System.in).nextInt();
-        } while(row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside of game board's length
+        } while(row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside the game board's length
         do {
             System.out.print("Column: ");
             col = new Scanner(System.in).nextInt();
@@ -95,4 +95,24 @@ public class Main {
         }
         return coordinates;
     }
+
+    private static char evaluateGuessAndGetTheTarget(int[] guessCoordinates, char[][] gameBoard, char ship, char water, char hit, char miss){ //this method will evaluate whether user hit or missed a ship
+        String message;
+        int row = guessCoordinates[0];
+        int col = guessCoordinates[1];
+
+        char target = gameBoard[row][col]; //this will check what target the guessed coordinates are hitting
+        if(target == ship) { //nested if else statement will check the target and see whether it hit water or a ship and will update the game board.
+            message = "Hit!";
+            target = hit; //if target hits a ship it will return a hit char
+        } else if (target == water) {
+            message = "Miss!";
+            target = water; //if target lands in water it will return a water char
+        } else {
+            message = "Already hit."; //The only two options is to hit a ship or hit water,so anything else means coordinated were already hit
+        }
+        System.out.println(message); //will print the message to let user know whether they hit or miss.
+        return target; //will return the target value that the coordinates hit
+    }
 }
+
