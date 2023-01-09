@@ -1,3 +1,9 @@
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -112,15 +118,34 @@ public class Main {
         char target = gameBoard[row][col]; //this will check what target the guessed coordinates are hitting
         if(target == ship) { //nested if else statement will check the target and see whether it hit water or a ship and will update the game board.
             message = "Hit!";
+            playSound("Sounds\\\\explosion.wav");
             target = hit; //if target hits a ship it will return a hit char
         } else if (target == water) {
             message = "Miss!";
+            playSound("Sounds\\\\splash.wav");
             target = miss; //if target lands in water it will return a water char
         } else {
             message = "Already hit."; //The only two options is to hit a ship or hit water,so anything else means coordinated were already hit
         }
         System.out.println(message); //will print the message to let user know whether they hit or miss.
         return target; //will return the target value that the coordinates hit
+    }
+
+    private static void playSound(String filepath) {
+        try {
+            File soundPath = new File(filepath);
+
+            if(soundPath.exists()) {
+                AudioInputStream audioInput = AudioSystem.getAudioInputStream(soundPath);
+                Clip clip = AudioSystem.getClip();
+                clip.open(audioInput);
+                clip.start();
+            } else {
+                System.out.println("Can't find file.");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
     }
 }
 
