@@ -12,6 +12,12 @@ public class Main {
         char miss = 'O'; //this will be the character symbol for a miss
         int shipNumber = 3; //this will be the number of ships
 
+        //for console color
+         final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
+         final String ANSI_RESET = "\u001B[0m";
+
+
+
         char[][] gameBoard = createGameBoard(gameBoardLength, water, ship, shipNumber); //this is a 2d character array that will be our game board
 
         printGameBoard(gameBoard, water, ship);  //this will run and print the game board
@@ -25,7 +31,7 @@ public class Main {
             gameBoard = updateGameBoard(gameBoard, guessCoordinates, locationViewUpdate);
             printGameBoard(gameBoard, water, ship);
         }
-        System.out.print("You Win!");
+        System.out.print(ANSI_CYAN_BACKGROUND + "You Win!" + ANSI_RESET);
     }
     private static char[][] updateGameBoard(char[][] gameBoard, int[] guessCoordinates, char locationViewUpdate) {
         int row = guessCoordinates[0];
