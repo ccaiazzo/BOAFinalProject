@@ -22,10 +22,18 @@ public class Main {
             if (locationViewUpdate == hit) {
                 undetectedShipNumber--;
             }
-            gameBoard = updateGameBoard();
+            gameBoard = updateGameBoard(gameBoard, guessCoordinates, locationViewUpdate);
             printGameBoard(gameBoard, water, ship);
         }
+        System.out.print("You Win!");
     }
+    private static char[][] updateGameBoard(char[][] gameBoard, int[] guessCoordinates, char locationViewUpdate) {
+        int row = guessCoordinates[0];
+        int col = guessCoordinates[1];
+        gameBoard[row][col] = locationViewUpdate;
+        return gameBoard;
+    }
+
 
     private static int[] getUserCoordinates(int gameBoardLength) { //this method will take the user's row and column target guess
         int row;
@@ -107,7 +115,7 @@ public class Main {
             target = hit; //if target hits a ship it will return a hit char
         } else if (target == water) {
             message = "Miss!";
-            target = water; //if target lands in water it will return a water char
+            target = miss; //if target lands in water it will return a water char
         } else {
             message = "Already hit."; //The only two options is to hit a ship or hit water,so anything else means coordinated were already hit
         }
