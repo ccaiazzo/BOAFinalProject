@@ -1,5 +1,10 @@
 # BOAFinal Project
 
+<p>
+<img src="BattleShip_Screenshot.png" alt="game screenshot"/>
+</p>
+
+
 ## Project Description 
 This project's goal was to create a game that runs in the console. Our group chose to create a game inspired by Battle Ship. The way our game works is the computer randomly places ships on the board. Then it asks the user to input the "Row" and "Column" they'd like to hit. If they miss, an "O" will appear on that spot on the board. If they hit the ship an "X" will appear on that spot. Once all ships are hit, "You Win!" will appear in the console.  
 

@@ -10,7 +10,7 @@ public class Main {
     static final String GREEN_BACKGROUND = "\u001B[42m";
     static final String PURPLE_BACKGROUND = "\u001B[45m";
 
-
+    final static String RED_TEXT = "\u001B[31m";
 
 
 
