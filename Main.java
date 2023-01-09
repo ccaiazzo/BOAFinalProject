@@ -28,6 +28,15 @@ public class Main {
             if (locationViewUpdate == hit) {
                 undetectedShipNumber--;
             }
+            //quit
+            System.out.println("DO YOU WANT TO CONTINUE PLAYING? 'YES' for yes / 'QUIT' to quit");
+            Scanner scan = new Scanner(System.in);
+            String toQuit = scan.next().toUpperCase();
+            if (toQuit.equals("QUIT")) {
+                System.exit(0);
+            }
+
+
             gameBoard = updateGameBoard(gameBoard, guessCoordinates, locationViewUpdate);
             printGameBoard(gameBoard, water, ship);
         }
@@ -44,16 +53,19 @@ public class Main {
     private static int[] getUserCoordinates(int gameBoardLength) { //this method will take the user's row and column target guess
         int row;
         int col;
-        do {
-            System.out.print("Row: ");
-            row = new Scanner(System.in).nextInt();
-        } while(row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside the game board's length
-        do {
-            System.out.print("Column: ");
-            col = new Scanner(System.in).nextInt();
-        } while(col < 1 || col > gameBoardLength + 1); //same logic as above
-        return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
-    }
+
+
+            do {
+                System.out.print("Row: ");
+                row = new Scanner(System.in).nextInt();
+            } while (row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside the game board's length
+            do {
+                System.out.print("Column: ");
+                col = new Scanner(System.in).nextInt();
+            } while (col < 1 || col > gameBoardLength + 1); //same logic as above
+            return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
+        }
+
 
     private static void printGameBoard(char[][] gameBoard, char water, char ship) {
         int gameBoardLength = gameBoard.length;
