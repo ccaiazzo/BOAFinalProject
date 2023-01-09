@@ -4,6 +4,16 @@ import java.util.Scanner;
 
 public class Main {
 
+    //colors
+    static final String YELLOW_BACKGROUND = "\u001B[43m";
+    static final String ANSI_RESET = "\u001B[0m";
+    static final String GREEN_BACKGROUND = "\u001B[42m";
+    static final String PURPLE_BACKGROUND = "\u001B[45m";
+
+
+
+
+
     public static void main(String[] args) {
         int gameBoardLength = 4; //this will be the size of the game board
         char water = '-'; //this will be the character symbol for the ship
@@ -29,7 +39,7 @@ public class Main {
                 undetectedShipNumber--;
             }
             //quit
-            System.out.println("DO YOU WANT TO CONTINUE PLAYING? 'YES' for yes / 'QUIT' to quit");
+            System.out.println("DO YOU WANT TO CONTINUE PLAYING? 'any key' for yes / 'QUIT' to quit");
             Scanner scan = new Scanner(System.in);
             String toQuit = scan.next().toUpperCase();
             if (toQuit.equals("QUIT")) {
@@ -129,13 +139,13 @@ public class Main {
 
         char target = gameBoard[row][col]; //this will check what target the guessed coordinates are hitting
         if(target == ship) { //nested if else statement will check the target and see whether it hit water or a ship and will update the game board.
-            message = "Hit!";
+            message = GREEN_BACKGROUND + "Hit!" + ANSI_RESET;
             target = hit; //if target hits a ship it will return a hit char
         } else if (target == water) {
-            message = "Miss!";
+            message = YELLOW_BACKGROUND + "Miss!" + ANSI_RESET;
             target = miss; //if target lands in water it will return a water char
         } else {
-            message = "Already hit."; //The only two options is to hit a ship or hit water,so anything else means coordinated were already hit
+            message = PURPLE_BACKGROUND + "Already hit." + ANSI_RESET; //The only two options is to hit a ship or hit water,so anything else means coordinated were already hit
         }
         System.out.println(message); //will print the message to let user know whether they hit or miss.
         return target; //will return the target value that the coordinates hit
