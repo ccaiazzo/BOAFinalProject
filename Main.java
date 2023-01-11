@@ -21,6 +21,11 @@ public class Main {
 
 
     public static void main(String[] args) {
+
+        //instructions
+        System.out.println("Hello! This game is a recreation of the battle ship game. The computer will randomly generate ships onto the board. \nYou will be prompted to enter the row and column of which you wish to strike. If you hit the ship, the spot you entered with show an 'X'.\nOtherwise, it'll show an 'O' for a miss. Once you hit all the hidden ships, you win! ");
+        System.out.println();
+
         int gameBoardLength = 4; //this will be the size of the game board
         char water = '-'; //this will be the character symbol for the ship
         char ship = 's'; //this will be the character symbol for s
