@@ -8,9 +8,7 @@ import java.util.Arrays;
 import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 public class Main {
 
@@ -80,8 +78,8 @@ public class Main {
     }
 
     private static int[] getUserCoordinates(int gameBoardLength) { //this method will take the user's row and column target guess
-        int row = 0;
-        int col = 0;
+        int row=0;
+        int col=0;
         boolean flag;
         do {
                 try{
@@ -95,15 +93,8 @@ public class Main {
                 }
             }while (row < 1 || row > gameBoardLength); //will ask user for input again if the given value is outside the game board's length
         do {
-            try{
-                Scanner s = new Scanner(System.in);
-                System.out.print("Column: ");
-                col=s.nextInt();
-                flag=false;
-            } catch (Exception e) { //will ask use to input again if value given is NOT an integer
-                System.out.println("Enter only an integer value from 1-4.");
-                flag=true;
-            }
+            System.out.print("Column: ");
+            col = new Scanner(System.in).nextInt();
         } while (col < 1 || col > gameBoardLength); //same logic as above
             return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
         }
