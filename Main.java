@@ -93,8 +93,15 @@ public class Main {
                 }
             }while (row < 1 || row > gameBoardLength); //will ask user for input again if the given value is outside the game board's length
         do {
-            System.out.print("Column: ");
-            col = new Scanner(System.in).nextInt();
+            try{
+                Scanner s = new Scanner(System.in);
+                System.out.print("Column: ");
+                col=s.nextInt();
+                flag=false;
+            } catch (Exception e) { //will ask use to input again if value given is NOT an integer
+                System.out.println("Enter only an integer value from 1-4.");
+                flag=true;
+            }
         } while (col < 1 || col > gameBoardLength); //same logic as above
             return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
         }
