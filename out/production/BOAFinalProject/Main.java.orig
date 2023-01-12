@@ -34,6 +34,7 @@ public class Main {
 
 
 
+
         char[][] gameBoard = createGameBoard(gameBoardLength, water, ship, shipNumber); //this is a 2d character array that will be our game board
 
         printGameBoard(gameBoard, water, ship);  //this will run and print the game board

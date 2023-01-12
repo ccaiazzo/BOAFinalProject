@@ -5,8 +5,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -23,7 +27,11 @@ public class Main {
     public static void main(String[] args) {
 
         //instructions
-        System.out.println("Hello! This game is a recreation of the battle ship game. The computer will randomly generate ships onto the board. \nYou will be prompted to enter the row and column of which you wish to strike. If you hit the ship, the spot you entered with show an 'X'.\nOtherwise, it'll show an 'O' for a miss. Once you hit all the hidden ships, you win! ");
+        System.out.print("Hello! This game is a recreation of the battle ship game." +
+                "\nThe computer will randomly generate ships onto the board. " +
+                "\nYou will be prompted to enter the row and column of which you wish to strike. " +
+                "\nIf you hit the ship, the spot you entered with show an 'X'. Otherwise, it'll show an 'O' for a miss." +
+                "\nOnce you hit all the hidden ships, you win! ");
         System.out.println();
 
         int gameBoardLength = 4; //this will be the size of the game board
@@ -71,20 +79,32 @@ public class Main {
         return gameBoard;
     }
 
-
     private static int[] getUserCoordinates(int gameBoardLength) { //this method will take the user's row and column target guess
-        int row;
-        int col;
-
-
-            do {
-                System.out.print("Row: ");
-                row = new Scanner(System.in).nextInt();
-            } while (row < 1 || row > gameBoardLength + 1); //will ask user for input again if the given value is outside the game board's length
-            do {
+        int row = 0;
+        int col = 0;
+        boolean flag;
+        do {
+                try{
+                    Scanner s = new Scanner(System.in);
+                    System.out.print("Row: ");
+                    row=s.nextInt();
+                    flag=false;
+            } catch (Exception e) { //will ask use to input again if value given is NOT an integer
+                    System.out.println("Enter only an integer value from 1-4.");
+                    flag=true;
+                }
+            }while (row < 1 || row > gameBoardLength); //will ask user for input again if the given value is outside the game board's length
+        do {
+            try{
+                Scanner s = new Scanner(System.in);
                 System.out.print("Column: ");
-                col = new Scanner(System.in).nextInt();
-            } while (col < 1 || col > gameBoardLength + 1); //same logic as above
+                col=s.nextInt();
+                flag=false;
+            } catch (Exception e) { //will ask use to input again if value given is NOT an integer
+                System.out.println("Enter only an integer value from 1-4.");
+                flag=true;
+            }
+        } while (col < 1 || col > gameBoardLength); //same logic as above
             return new int[]{row - 1, col - 1};//we subtract 1 from the user's input to ensure we are checking the correct index on the board
         }
 
