@@ -39,6 +39,7 @@ public class Main {
         char hit = 'X'; //this will be the character symbol for a hit
         char miss = 'O'; //this will be the character symbol for a miss
         int shipNumber = 3; //this will be the number of ships
+        int turnCount = 1;
 
         //for console color
         final String ANSI_CYAN_BACKGROUND = "\u001B[46m";
@@ -50,17 +51,31 @@ public class Main {
         printGameBoard(gameBoard, water, ship);  //this will run and print the game board
         int undetectedShipNumber = shipNumber;//the initial value of undetected ships will be however many ships are in the game at the start
         while (undetectedShipNumber > 0) { //this will run as long as there are still undetected ships remaining on the board
+            System.out.printf("Turn %s\n", turnCount);
             int[] guessCoordinates = getUserCoordinates(gameBoardLength);
             char locationViewUpdate = evaluateGuessAndGetTheTarget(guessCoordinates, gameBoard, ship, water, hit, miss, shipNumber); //this will determine whether the user target is a hit or miss.
             if (locationViewUpdate == hit) {
                 undetectedShipNumber--;
-                System.out.printf("%s ships remaining.\n", undetectedShipNumber);
+                if(undetectedShipNumber == 1) {
+                    System.out.printf("%s ship remaining.\n", undetectedShipNumber);
+                } else {
+                    System.out.printf("%s ships remaining.\n", undetectedShipNumber);
+                }
+            } else {
+                if(undetectedShipNumber == 1) {
+                    System.out.printf("%s ship remaining.\n", undetectedShipNumber);
+                } else {
+                    System.out.printf("%s ships remaining.\n", undetectedShipNumber);
+                }
+
             }
+            turnCount++;
+
             //quit
-            System.out.println("DO YOU WANT TO CONTINUE PLAYING? 'any key' for yes / 'QUIT' to quit");
+            System.out.println("DO YOU WANT TO CONTINUE PLAYING? 'any key' for yes / 'quit' or 'q' to quit");
             Scanner scan = new Scanner(System.in);
             String toQuit = scan.next().toUpperCase();
-            if (toQuit.equals("QUIT")) {
+            if (toQuit.equalsIgnoreCase("QUIT")||toQuit.equalsIgnoreCase("q")) {
                 System.out.println("Thanks for playing! See you next time!");
                 System.exit(0);
             }
@@ -168,6 +183,7 @@ public class Main {
         String message;
         int row = guessCoordinates[0];
         int col = guessCoordinates[1];
+
 
         char target = gameBoard[row][col]; //this will check what target the guessed coordinates are hitting
         if (target == ship) { //nested if else statement will check the target and see whether it hit water or a ship and will update the game board.
